@@ -3,227 +3,224 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sartoria del Caffè | Milano</title>
+    <title>L'ATTICO | Rooftop & Mixology Milano</title>
     
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
-    
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
             theme: {
                 extend: {
                     colors: {
-                        brand: {
-                            dark: '#0a0a0a',     /* Nero profondo */
-                            light: '#f4f1eb',    /* Color pergamena/crema */
-                            gold: '#c5a059',     /* Oro champagne elegante */
-                            gray: '#888888'
-                        }
+                        stone: {
+                            900: '#1a1a1a', // Grigio scuro caldo (più elegante del nero puro)
+                            800: '#2d2d2d',
+                            100: '#f5f5f2', // Bianco sporco/calcareo
+                            50: '#fafaf9',
+                        },
+                        accent: '#c8b273' // Oro opaco veneziano
                     },
                     fontFamily: {
-                        serif: ['"Cormorant Garamond"', 'serif'],
-                        sans: ['"Montserrat"', 'sans-serif']
+                        // Un serif estremamente sottile ed elegante per i titoli
+                        display: ['"Cinzel Decorative"', 'serif'],
+                        // Un sans-serif geometrico e rigoroso per i testi
+                        sans: ['"Jost"', 'sans-serif']
+                    },
+                    letterSpacing: {
+                        'widest-xl': '0.3em',
                     }
                 }
             }
         }
     </script>
 
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&family=Jost:wght@200;300;400;500&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
     <style>
-        /* Animazioni fluide di base */
-        .fade-in { animation: fadeIn 1.5s ease-in forwards; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        /* Effetto sfocato per l'intestazione che si fonde con lo sfondo */
+        .glass-header {
+            background: rgba(250, 250, 249, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
         
-        /* Linea tratteggiata per il menu in stile alta cucina */
-        .menu-leader { border-bottom: 1px dotted #888888; flex-grow: 1; margin: 0 15px; position: relative; top: -6px; }
+        /* Immagine Hero con filtro cinematografico */
+        .hero-bg {
+            background-image: url('https://images.unsplash.com/photo-1572116469696-31de0f17cc34?q=80&w=2070&auto=format&fit=crop');
+            background-size: cover;
+            background-position: center 30%;
+        }
+
+        /* Linea sottile animata sotto i link */
+        .hover-underline-animation {
+            display: inline-block;
+            position: relative;
+        }
+        .hover-underline-animation::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            transform: scaleX(0);
+            height: 1px;
+            bottom: -4px;
+            left: 0;
+            background-color: #1a1a1a;
+            transform-origin: bottom right;
+            transition: transform 0.4s cubic-bezier(0.86, 0, 0.07, 1);
+        }
+        .hover-underline-animation:hover::after {
+            transform: scaleX(1);
+            transform-origin: bottom left;
+        }
+
+        /* Animazione entrata elegante */
+        .reveal { opacity: 0; transform: translateY(30px); transition: all 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94); }
+        .reveal.active { opacity: 1; transform: translateY(0); }
     </style>
 </head>
-<body class="bg-brand-light text-brand-dark font-sans antialiased selection:bg-brand-gold selection:text-white">
+<body class="bg-stone-50 text-stone-900 font-sans font-light antialiased selection:bg-stone-900 selection:text-white">
 
-    <nav class="fixed w-full z-50 bg-brand-dark/95 backdrop-blur-sm border-b border-white/10 py-4 transition-all">
-        <div class="max-w-7xl mx-auto px-6 flex justify-between items-center">
-            <a href="#" class="font-serif text-2xl font-bold text-white tracking-widest uppercase">
-                Sartoria<span class="text-brand-gold italic lowercase ml-1">del caffè</span>
+    <nav class="fixed w-full z-50 glass-header border-b border-stone-200/50 py-5 transition-all duration-500">
+        <div class="max-w-screen-2xl mx-auto px-8 flex justify-between items-center">
+            <a href="#" class="font-display text-2xl tracking-widest text-stone-900">
+                L'ATTICO
             </a>
-            <div class="hidden md:flex space-x-10">
-                <a href="#filosofia" class="text-xs font-medium tracking-widest text-gray-300 hover:text-brand-gold uppercase transition">Filosofia</a>
-                <a href="#menu" class="text-xs font-medium tracking-widest text-gray-300 hover:text-brand-gold uppercase transition">La Carta</a>
-                <a href="#location" class="text-xs font-medium tracking-widest text-gray-300 hover:text-brand-gold uppercase transition">Location</a>
+            
+            <div class="hidden md:flex items-center space-x-12">
+                <a href="#experience" class="text-[11px] uppercase tracking-widest-xl font-medium hover-underline-animation">L'Esperienza</a>
+                <a href="#tasting" class="text-[11px] uppercase tracking-widest-xl font-medium hover-underline-animation">La Carta</a>
+                <a href="https://wa.me/393331234567" class="text-[11px] uppercase tracking-widest-xl font-medium text-white bg-stone-900 px-6 py-3 hover:bg-accent transition-colors duration-500">
+                    Prenotazioni
+                </a>
             </div>
-            <a href="https://wa.me/393331234567" target="_blank" class="hidden md:inline-block border border-brand-gold text-brand-gold px-6 py-2 text-xs font-medium tracking-widest uppercase hover:bg-brand-gold hover:text-brand-dark transition duration-300">
-                Riserva un tavolo
-            </a>
         </div>
     </nav>
 
-    <header class="relative h-screen flex items-center justify-center overflow-hidden">
-        <div class="absolute inset-0 z-0">
-            <img src="https://images.unsplash.com/photo-1497935586351-b67a49e012bf?q=80&w=2071&auto=format&fit=crop" alt="Caffè Milano" class="w-full h-full object-cover" />
-            <div class="absolute inset-0 bg-brand-dark/70"></div> </div>
+    <header class="relative h-screen flex flex-col justify-end pb-32 px-8 overflow-hidden">
+        <div class="absolute inset-0 z-0 hero-bg">
+            <div class="absolute inset-0 bg-stone-900/40 mix-blend-multiply"></div>
+            <div class="absolute inset-0 bg-gradient-to-t from-stone-900/90 via-stone-900/20 to-transparent"></div>
+        </div>
         
-        <div class="relative z-10 text-center px-4 max-w-4xl fade-in">
-            <p class="text-brand-gold font-sans text-sm tracking-[0.3em] uppercase mb-6">Milano Centro Storico</p>
-            <h1 class="text-6xl md:text-8xl font-serif text-white mb-6 leading-none">L'Arte della <br><span class="italic font-light">Pausa</span></h1>
-            <p class="text-gray-300 font-sans text-lg md:text-xl font-light tracking-wide mb-12 max-w-2xl mx-auto">
-                Selezioniamo le migliori miscele dal mondo per offrirti un'esperienza senza compromessi.
+        <div class="relative z-10 max-w-screen-xl mx-auto w-full reveal active">
+            <p class="text-accent text-xs tracking-widest-xl uppercase mb-6 font-medium">Skyline Lounge · Milano</p>
+            <h1 class="font-display text-7xl md:text-9xl text-white leading-none mb-8 tracking-wide">
+                Al di sopra <br>della città.
+            </h1>
+            <div class="w-full h-px bg-white/20 mb-8 max-w-md"></div>
+            <p class="text-stone-100/80 font-light text-lg max-w-md leading-relaxed">
+                Un rifugio esclusivo dove l'alta miscelazione incontra la vista più affascinante di Milano. 
             </p>
-            <a href="#menu" class="group relative inline-flex items-center justify-center px-8 py-4 font-sans font-medium tracking-widest text-white uppercase border border-brand-gold overflow-hidden transition-all duration-300">
-                <span class="absolute inset-0 w-full h-full -mt-1 rounded-opacity-50 bg-brand-gold transition-all duration-300 ease-out -translate-x-full group-hover:translate-x-0"></span>
-                <span class="relative text-xs">Esplora la Carta</span>
-            </a>
         </div>
     </header>
 
-    <section id="filosofia" class="py-32 px-6">
-        <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
-            <div class="relative">
-                <img src="https://images.unsplash.com/photo-1600093463592-8e36ae95ef56?q=80&w=2070&auto=format&fit=crop" alt="Preparazione caffè" class="w-full h-auto object-cover shadow-2xl grayscale hover:grayscale-0 transition duration-700" />
-                <div class="absolute -bottom-8 -right-8 bg-brand-dark text-white p-8 hidden md:block w-64">
-                    <p class="font-serif text-3xl text-brand-gold mb-2">100%</p>
-                    <p class="text-xs uppercase tracking-widest text-gray-400">Arabica Monorigine</p>
-                </div>
-            </div>
-            <div class="md:pl-12">
-                <h2 class="font-serif text-5xl md:text-6xl text-brand-dark mb-8 leading-tight">La nostra <br><span class="italic text-brand-gray">Filosofia</span></h2>
-                <p class="font-sans text-brand-gray text-base leading-relaxed mb-6 font-light">
-                    Non serviamo semplicemente caffè. Estraiamo l'essenza di chicchi coltivati ad alta quota, tostati artigianalmente e preparati con la precisione che solo l'esperienza può garantire.
-                </p>
-                <p class="font-sans text-brand-gray text-base leading-relaxed font-light">
-                    Il nostro locale è concepito come un rifugio dalla frenesia milanese: luci soffuse, materiali nobili e un servizio attento e discreto.
-                </p>
-            </div>
-        </div>
-    </section>
-
-    <section id="menu" class="py-32 bg-white px-6">
-        <div class="max-w-5xl mx-auto">
-            <div class="text-center mb-20">
-                <p class="text-brand-gold text-xs tracking-[0.3em] uppercase mb-4">Degustazione</p>
-                <h2 class="font-serif text-5xl text-brand-dark">La Carta</h2>
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-x-20 gap-y-16">
-                
-                <div>
-                    <h3 class="font-serif text-3xl text-brand-dark mb-10 border-b border-gray-200 pb-4">Caffetteria</h3>
-                    <ul class="space-y-8">
-                        <li>
-                            <div class="flex items-baseline justify-between mb-2 text-brand-dark font-medium">
-                                <span class="text-lg uppercase tracking-wide">Espresso Reserve</span>
-                                <div class="menu-leader"></div>
-                                <span class="text-lg font-serif">1.50 €</span>
-                            </div>
-                            <p class="text-sm text-brand-gray font-light">Miscela esclusiva, sentori di cioccolato fondente e nocciola.</p>
-                        </li>
-                        <li>
-                            <div class="flex items-baseline justify-between mb-2 text-brand-dark font-medium">
-                                <span class="text-lg uppercase tracking-wide">Cappuccino Perfetto</span>
-                                <div class="menu-leader"></div>
-                                <span class="text-lg font-serif">2.50 €</span>
-                            </div>
-                            <p class="text-sm text-brand-gray font-light">Latte micro-schiumato a 65°C, crema setosa.</p>
-                        </li>
-                        <li>
-                            <div class="flex items-baseline justify-between mb-2 text-brand-dark font-medium">
-                                <span class="text-lg uppercase tracking-wide">V60 Pour Over</span>
-                                <div class="menu-leader"></div>
-                                <span class="text-lg font-serif">4.00 €</span>
-                            </div>
-                            <p class="text-sm text-brand-gray font-light">Estrazione lenta a filtro, monorigine Etiopia (15 min).</p>
-                        </li>
-                    </ul>
-                </div>
-
-                <div>
-                    <h3 class="font-serif text-3xl text-brand-dark mb-10 border-b border-gray-200 pb-4">Mixology Bar</h3>
-                    <ul class="space-y-8">
-                        <li>
-                            <div class="flex items-baseline justify-between mb-2 text-brand-dark font-medium">
-                                <span class="text-lg uppercase tracking-wide">Milano Vintage</span>
-                                <div class="menu-leader"></div>
-                                <span class="text-lg font-serif">12.00 €</span>
-                            </div>
-                            <p class="text-sm text-brand-gray font-light">Bitter Campari, Vermouth Rosso, gocce di rabarbaro.</p>
-                        </li>
-                        <li>
-                            <div class="flex items-baseline justify-between mb-2 text-brand-dark font-medium">
-                                <span class="text-lg uppercase tracking-wide">Gin Tonic Botanico</span>
-                                <div class="menu-leader"></div>
-                                <span class="text-lg font-serif">14.00 €</span>
-                            </div>
-                            <p class="text-sm text-brand-gray font-light">Gin artigianale lombardo, tonica premium, rosmarino.</p>
-                        </li>
-                        <li>
-                            <div class="flex items-baseline justify-between mb-2 text-brand-dark font-medium">
-                                <span class="text-lg uppercase tracking-wide">Selezione Salumi</span>
-                                <div class="menu-leader"></div>
-                                <span class="text-lg font-serif">18.00 €</span>
-                            </div>
-                            <p class="text-sm text-brand-gray font-light">Prosciutto crudo DOP, formaggi stagionati, focaccia.</p>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="location" class="bg-brand-dark py-24 px-6 relative">
-        <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+    <section id="experience" class="py-40 bg-stone-50 px-8">
+        <div class="max-w-screen-xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-20 items-center">
             
-            <div class="text-white">
-                <h2 class="font-serif text-5xl mb-12">Raggiungici</h2>
-                <div class="space-y-8 font-light text-gray-400">
-                    <div class="flex items-start">
-                        <i class="fa-solid fa-map-pin text-brand-gold mt-1 mr-4 text-xl"></i>
-                        <div>
-                            <p class="text-white text-lg font-medium mb-1 uppercase tracking-wider text-xs">Indirizzo</p>
-                            <p>Via Brera 24, 20121 Milano (MI)</p>
-                        </div>
-                    </div>
-                    <div class="flex items-start">
-                        <i class="fa-solid fa-clock text-brand-gold mt-1 mr-4 text-xl"></i>
-                        <div>
-                            <p class="text-white text-lg font-medium mb-1 uppercase tracking-wider text-xs">Orari di apertura</p>
-                            <p>Lun - Sab: 08:00 - 24:00<br>Domenica: Chiuso</p>
-                        </div>
-                    </div>
-                    <div class="flex items-start">
-                        <i class="fa-solid fa-phone text-brand-gold mt-1 mr-4 text-xl"></i>
-                        <div>
-                            <p class="text-white text-lg font-medium mb-1 uppercase tracking-wider text-xs">Prenotazioni</p>
-                            <p><a href="tel:+3902123456" class="hover:text-brand-gold transition">02 123 456 78</a></p>
-                        </div>
-                    </div>
-                </div>
+            <div class="lg:col-span-5 reveal">
+                <p class="text-[10px] text-stone-400 tracking-widest-xl uppercase mb-8">La Filosofia</p>
+                <h2 class="font-display text-4xl md:text-5xl text-stone-900 leading-tight mb-10">
+                    L'essenza del lusso<br>è il tempo.
+                </h2>
+                <p class="text-stone-500 leading-loose font-light mb-8">
+                    L'Attico non è solo un lounge bar, è un palcoscenico sospeso tra il Duomo e i grattacieli di Porta Nuova. 
+                    Ispirati all'eleganza dell'hotellerie milanese, abbiamo creato uno spazio dove il design essenziale lascia parlare il panorama e i sapori.
+                </p>
+                <a href="#tasting" class="inline-flex items-center text-xs uppercase tracking-widest font-medium group">
+                    Esplora la proposta 
+                    <i class="fa-solid fa-arrow-right ml-4 transform group-hover:translate-x-2 transition-transform duration-300"></i>
+                </a>
             </div>
 
-            <div class="h-96 w-full grayscale hover:grayscale-0 transition duration-500 rounded-sm overflow-hidden border border-white/10">
-                <iframe 
-                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2798.397073235314!2d9.186515915557342!3d45.47184207910087!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4786c14b3fb4a5bf%3A0x6a16eb43e0dce446!2sPinacoteca%20di%20Brera!5e0!3m2!1sit!2sit!4v1680000000000!5m2!1sit!2sit" 
-                    width="100%" 
-                    height="100%" 
-                    style="border:0;" 
-                    allowfullscreen="" 
-                    loading="lazy" 
-                    referrerpolicy="no-referrer-when-downgrade">
-                </iframe>
+            <div class="lg:col-span-7 relative h-[600px] reveal">
+                <img src="https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?q=80&w=2070&auto=format&fit=crop" alt="Cocktail Detail" class="absolute top-0 right-0 w-3/4 h-[500px] object-cover shadow-2xl grayscale hover:grayscale-0 transition-all duration-1000 z-10" />
+                <img src="https://images.unsplash.com/photo-1528605248644-14dd04022da1?q=80&w=2070&auto=format&fit=crop" alt="Lounge Ambience" class="absolute bottom-0 left-0 w-2/3 h-[400px] object-cover shadow-xl z-20 border-8 border-stone-50" />
             </div>
         </div>
     </section>
 
-    <footer class="bg-[#050505] py-10 text-center border-t border-white/5">
-        <p class="text-gray-600 text-xs font-light tracking-widest uppercase">
-            &copy; 2026 Sartoria del Caffè. P.IVA 12345678901. <br><span class="mt-2 inline-block">Progetto digitale a cura di <a href="#" class="text-brand-gold hover:text-white transition">Ingegneria Web Milano</a></span>
+    <section id="tasting" class="py-40 bg-stone-900 text-stone-50 px-8">
+        <div class="max-w-screen-md mx-auto reveal">
+            <div class="text-center mb-24">
+                <p class="text-accent text-[10px] tracking-widest-xl uppercase mb-6">Degustazione</p>
+                <h2 class="font-display text-5xl text-white">La Carta</h2>
+            </div>
+
+            <div class="space-y-24">
+                <div>
+                    <h3 class="text-xs uppercase tracking-widest-xl text-stone-400 border-b border-stone-800 pb-4 mb-10">Signature Mixology</h3>
+                    <ul class="space-y-12">
+                        <li class="group">
+                            <div class="flex justify-between items-baseline mb-2">
+                                <h4 class="font-display text-2xl text-white group-hover:text-accent transition-colors duration-300">L'Oro di Milano</h4>
+                                <span class="font-sans text-sm font-medium">22 €</span>
+                            </div>
+                            <p class="text-stone-400 font-light text-sm leading-relaxed max-w-md">Zafferano infuso in Gin premium artigianale, vermouth bianco dry, foglia d'oro edibile 24k.</p>
+                        </li>
+                        <li class="group">
+                            <div class="flex justify-between items-baseline mb-2">
+                                <h4 class="font-display text-2xl text-white group-hover:text-accent transition-colors duration-300">Nebbia in Valpadana</h4>
+                                <span class="font-sans text-sm font-medium">18 €</span>
+                            </div>
+                            <p class="text-stone-400 font-light text-sm leading-relaxed max-w-md">Bourbon invecchiato, sciroppo d'acero affumicato, bitter al mallo di noce, servito sotto cupola di fumo di melo.</p>
+                        </li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h3 class="text-xs uppercase tracking-widest-xl text-stone-400 border-b border-stone-800 pb-4 mb-10">Gourmet Bites</h3>
+                    <ul class="space-y-12">
+                        <li class="group">
+                            <div class="flex justify-between items-baseline mb-2">
+                                <h4 class="font-display text-2xl text-white group-hover:text-accent transition-colors duration-300">Ostriche & Caviale</h4>
+                                <span class="font-sans text-sm font-medium">45 €</span>
+                            </div>
+                            <p class="text-stone-400 font-light text-sm leading-relaxed max-w-md">Selezione di 3 ostriche fine de claire, blinis artigianali, caviale Oscietra e panna acida.</p>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="text-center mt-24">
+                 <a href="#" class="inline-block border border-stone-700 hover:border-accent text-xs uppercase tracking-widest font-medium px-10 py-4 transition-all duration-500">
+                    Scarica l'intera carta
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-stone-100 py-20 px-8 text-center border-t border-stone-200">
+        <h4 class="font-display text-2xl text-stone-900 mb-8 tracking-widest">L'ATTICO</h4>
+        <div class="flex flex-col md:flex-row justify-center items-center space-y-4 md:space-y-0 md:space-x-12 mb-12 text-sm font-light text-stone-500">
+            <p>Via Brera, 12 - Milano</p>
+            <p class="hidden md:block">|</p>
+            <p><a href="tel:+39021234567" class="hover:text-stone-900 transition">+39 02 123 456 78</a></p>
+            <p class="hidden md:block">|</p>
+            <p>18:00 — 02:00 (Lun chiuso)</p>
+        </div>
+        <p class="text-[10px] uppercase tracking-widest-xl text-stone-400">
+            © 2026 L'Attico Milano. <br class="md:hidden">Cura digitale by <span class="text-stone-800 font-medium">Ingegneria Web Milano</span>.
         </p>
     </footer>
 
-    <a href="https://wa.me/393331234567" target="_blank" class="fixed bottom-8 right-8 bg-brand-dark text-white border border-brand-gold w-14 h-14 rounded-full flex items-center justify-center text-2xl shadow-2xl hover:bg-brand-gold hover:text-brand-dark transition-all duration-300 z-50 group">
-        <i class="fa-brands fa-whatsapp group-hover:scale-110 transition-transform"></i>
-    </a>
-
+    <script>
+        function reveal() {
+            var reveals = document.querySelectorAll(".reveal");
+            for (var i = 0; i < reveals.length; i++) {
+                var windowHeight = window.innerHeight;
+                var elementTop = reveals[i].getBoundingClientRect().top;
+                var elementVisible = 100;
+                if (elementTop < windowHeight - elementVisible) {
+                    reveals[i].classList.add("active");
+                }
+            }
+        }
+        window.addEventListener("scroll", reveal);
+        // Trigger iniziale
+        setTimeout(reveal, 100);
+    </script>
 </body>
 </html>
