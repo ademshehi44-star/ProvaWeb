@@ -2,7 +2,7 @@
 <html lang="it" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>L'ATTICO | Rooftop & Mixology Milano</title>
     
     <script src="https://cdn.tailwindcss.com"></script>
@@ -11,23 +11,14 @@
             theme: {
                 extend: {
                     colors: {
-                        stone: {
-                            900: '#1a1a1a', // Grigio scuro caldo (più elegante del nero puro)
-                            800: '#2d2d2d',
-                            100: '#f5f5f2', // Bianco sporco/calcareo
-                            50: '#fafaf9',
-                        },
-                        accent: '#c8b273' // Oro opaco veneziano
+                        stone: { 900: '#1a1a1a', 800: '#2d2d2d', 100: '#f5f5f2', 50: '#fafaf9' },
+                        accent: '#c8b273'
                     },
                     fontFamily: {
-                        // Un serif estremamente sottile ed elegante per i titoli
                         display: ['"Cinzel Decorative"', 'serif'],
-                        // Un sans-serif geometrico e rigoroso per i testi
                         sans: ['"Jost"', 'sans-serif']
                     },
-                    letterSpacing: {
-                        'widest-xl': '0.3em',
-                    }
+                    letterSpacing: { 'widest-xl': '0.3em' }
                 }
             }
         }
@@ -40,191 +31,163 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <style>
-        /* Effetto sfocato per l'intestazione che si fonde con lo sfondo */
-        .glass-header {
-            background: rgba(250, 250, 249, 0.85);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-        }
-        
-        /* Immagine Hero con filtro cinematografico */
-        .hero-bg {
-            background-image: url('https://images.unsplash.com/photo-1572116469696-31de0f17cc34?q=80&w=2070&auto=format&fit=crop');
-            background-size: cover;
-            background-position: center 30%;
-        }
-
-        /* Linea sottile animata sotto i link */
-        .hover-underline-animation {
-            display: inline-block;
-            position: relative;
-        }
-        .hover-underline-animation::after {
-            content: '';
-            position: absolute;
-            width: 100%;
-            transform: scaleX(0);
-            height: 1px;
-            bottom: -4px;
-            left: 0;
-            background-color: #1a1a1a;
-            transform-origin: bottom right;
-            transition: transform 0.4s cubic-bezier(0.86, 0, 0.07, 1);
-        }
-        .hover-underline-animation:hover::after {
-            transform: scaleX(1);
-            transform-origin: bottom left;
-        }
-
-        /* Animazione entrata elegante */
-        .reveal { opacity: 0; transform: translateY(30px); transition: all 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94); }
+        .glass-header { background: rgba(250, 250, 249, 0.9); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); }
+        .hero-bg { background-image: url('https://images.unsplash.com/photo-1572116469696-31de0f17cc34?q=80&w=2070&auto=format&fit=crop'); background-size: cover; background-position: center; }
+        .reveal { opacity: 0; transform: translateY(30px); transition: all 1s ease-out; }
         .reveal.active { opacity: 1; transform: translateY(0); }
+        
+        /* Menu Mobile Animazione */
+        #mobile-menu { transition: opacity 0.4s ease, visibility 0.4s ease; }
+        #mobile-menu.open { opacity: 1; visibility: visible; }
     </style>
 </head>
 <body class="bg-stone-50 text-stone-900 font-sans font-light antialiased selection:bg-stone-900 selection:text-white">
 
-    <nav class="fixed w-full z-50 glass-header border-b border-stone-200/50 py-5 transition-all duration-500">
-        <div class="max-w-screen-2xl mx-auto px-8 flex justify-between items-center">
-            <a href="#" class="font-display text-2xl tracking-widest text-stone-900">
-                L'ATTICO
-            </a>
+    <nav class="fixed w-full z-50 glass-header border-b border-stone-200/50 py-4 md:py-5 transition-all duration-500">
+        <div class="max-w-screen-2xl mx-auto px-6 md:px-8 flex justify-between items-center">
+            
+            <a href="#" class="font-display text-xl md:text-2xl tracking-widest text-stone-900">L'ATTICO</a>
             
             <div class="hidden md:flex items-center space-x-12">
-                <a href="#experience" class="text-[11px] uppercase tracking-widest-xl font-medium hover-underline-animation">L'Esperienza</a>
-                <a href="#tasting" class="text-[11px] uppercase tracking-widest-xl font-medium hover-underline-animation">La Carta</a>
+                <a href="#experience" class="text-[11px] uppercase tracking-widest-xl font-medium hover:text-accent transition-colors">L'Esperienza</a>
+                <a href="#tasting" class="text-[11px] uppercase tracking-widest-xl font-medium hover:text-accent transition-colors">La Carta</a>
                 <a href="https://wa.me/393534321599?text=Salve!%20Vorrei%20avere%20informazioni%20sulle%20prenotazioni%20a%20L'Attico." target="_blank" class="text-[11px] uppercase tracking-widest-xl font-medium text-white bg-stone-900 px-6 py-3 hover:bg-accent transition-colors duration-500">
                     Prenotazioni
                 </a>
             </div>
+
+            <button id="menu-btn" class="md:hidden text-stone-900 text-2xl focus:outline-none">
+                <i class="fa-solid fa-bars"></i>
+            </button>
         </div>
     </nav>
 
-    <header class="relative h-screen flex flex-col justify-end pb-32 px-8 overflow-hidden">
+    <div id="mobile-menu" class="fixed inset-0 bg-stone-900 z-[60] opacity-0 invisible flex flex-col items-center justify-center">
+        <button id="close-btn" class="absolute top-6 right-6 text-white text-3xl focus:outline-none">
+            <i class="fa-solid fa-xmark"></i>
+        </button>
+        <div class="flex flex-col items-center space-y-10 text-center">
+            <a href="#experience" class="mobile-link font-display text-3xl text-white hover:text-accent transition-colors">L'Esperienza</a>
+            <a href="#tasting" class="mobile-link font-display text-3xl text-white hover:text-accent transition-colors">La Carta</a>
+            <a href="https://wa.me/393534321599?text=Salve!%20Vorrei%20avere%20informazioni%20sulle%20prenotazioni%20a%20L'Attico." class="mobile-link mt-8 text-[11px] uppercase tracking-widest-xl font-medium text-stone-900 bg-accent px-8 py-4">
+                Prenota ora
+            </a>
+        </div>
+    </div>
+
+    <header class="relative h-[90vh] md:h-screen flex flex-col justify-end pb-24 md:pb-32 px-6 md:px-8 overflow-hidden">
         <div class="absolute inset-0 z-0 hero-bg">
-            <div class="absolute inset-0 bg-stone-900/40 mix-blend-multiply"></div>
-            <div class="absolute inset-0 bg-gradient-to-t from-stone-900/90 via-stone-900/20 to-transparent"></div>
+            <div class="absolute inset-0 bg-stone-900/50 mix-blend-multiply"></div>
+            <div class="absolute inset-0 bg-gradient-to-t from-stone-900/95 via-stone-900/30 to-transparent"></div>
         </div>
         
         <div class="relative z-10 max-w-screen-xl mx-auto w-full reveal active">
-            <p class="text-accent text-xs tracking-widest-xl uppercase mb-6 font-medium">Skyline Lounge · Milano</p>
-            <h1 class="font-display text-7xl md:text-9xl text-white leading-none mb-8 tracking-wide">
+            <p class="text-accent text-[10px] md:text-xs tracking-widest-xl uppercase mb-4 md:mb-6 font-medium">Skyline Lounge · Milano</p>
+            <h1 class="font-display text-5xl sm:text-7xl md:text-9xl text-white leading-none mb-6 md:mb-8 tracking-wide">
                 Al di sopra <br>della città.
             </h1>
-            <div class="w-full h-px bg-white/20 mb-8 max-w-md"></div>
-            <p class="text-stone-100/80 font-light text-lg max-w-md leading-relaxed">
+            <div class="w-24 md:w-full h-px bg-white/30 mb-6 md:mb-8 max-w-md"></div>
+            <p class="text-stone-100/90 font-light text-base md:text-lg max-w-md leading-relaxed">
                 Un rifugio esclusivo dove l'alta miscelazione incontra la vista più affascinante di Milano. 
             </p>
         </div>
     </header>
 
-    <section id="experience" class="py-40 bg-stone-50 px-8">
-        <div class="max-w-screen-xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-20 items-center">
+    <section id="experience" class="py-20 md:py-40 bg-stone-50 px-6 md:px-8">
+        <div class="max-w-screen-xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 md:gap-20 items-center">
             
-            <div class="lg:col-span-5 reveal">
-                <p class="text-[10px] text-stone-400 tracking-widest-xl uppercase mb-8">La Filosofia</p>
-                <h2 class="font-display text-4xl md:text-5xl text-stone-900 leading-tight mb-10">
-                    L'essenza del lusso<br>è il tempo.
-                </h2>
-                <p class="text-stone-500 leading-loose font-light mb-8">
+            <div class="lg:col-span-5 reveal text-center md:text-left">
+                <p class="text-[10px] text-stone-400 tracking-widest-xl uppercase mb-6 md:mb-8">La Filosofia</p>
+                <h2 class="font-display text-3xl md:text-5xl text-stone-900 leading-tight mb-8 md:mb-10">L'essenza del lusso<br>è il tempo.</h2>
+                <p class="text-stone-500 leading-relaxed md:leading-loose font-light mb-8 text-sm md:text-base">
                     L'Attico non è solo un lounge bar, è un palcoscenico sospeso tra il Duomo e i grattacieli di Porta Nuova. 
-                    Ispirati all'eleganza dell'hotellerie milanese, abbiamo creato uno spazio dove il design essenziale lascia parlare il panorama e i sapori.
+                    Ispirati all'eleganza milanese, abbiamo creato uno spazio dove il design lascia parlare i sapori.
                 </p>
-                <a href="#tasting" class="inline-flex items-center text-xs uppercase tracking-widest font-medium group">
-                    Esplora la proposta 
-                    <i class="fa-solid fa-arrow-right ml-4 transform group-hover:translate-x-2 transition-transform duration-300"></i>
-                </a>
             </div>
 
-            <div class="lg:col-span-7 relative h-[600px] reveal">
-                <img src="https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?q=80&w=2070&auto=format&fit=crop" alt="Cocktail Detail" class="absolute top-0 right-0 w-3/4 h-[500px] object-cover shadow-2xl grayscale hover:grayscale-0 transition-all duration-1000 z-10" />
-                <img src="https://images.unsplash.com/photo-1528605248644-14dd04022da1?q=80&w=2070&auto=format&fit=crop" alt="Lounge Ambience" class="absolute bottom-0 left-0 w-2/3 h-[400px] object-cover shadow-xl z-20 border-8 border-stone-50" />
+            <div class="lg:col-span-7 relative h-[300px] md:h-[600px] reveal mt-8 md:mt-0">
+                <img src="https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?q=80&w=2070&auto=format&fit=crop" alt="Cocktail" class="absolute top-0 right-0 w-full md:w-3/4 h-[250px] md:h-[500px] object-cover shadow-2xl z-10" />
+                <img src="https://images.unsplash.com/photo-1528605248644-14dd04022da1?q=80&w=2070&auto=format&fit=crop" alt="Lounge" class="hidden md:block absolute bottom-0 left-0 w-2/3 h-[400px] object-cover shadow-xl z-20 border-8 border-stone-50" />
             </div>
         </div>
     </section>
 
-    <section id="tasting" class="py-40 bg-stone-900 text-stone-50 px-8">
+    <section id="tasting" class="py-20 md:py-40 bg-stone-900 text-stone-50 px-6 md:px-8">
         <div class="max-w-screen-md mx-auto reveal">
-            <div class="text-center mb-24">
-                <p class="text-accent text-[10px] tracking-widest-xl uppercase mb-6">Degustazione</p>
-                <h2 class="font-display text-5xl text-white">La Carta</h2>
+            <div class="text-center mb-16 md:mb-24">
+                <p class="text-accent text-[10px] tracking-widest-xl uppercase mb-4">Degustazione</p>
+                <h2 class="font-display text-4xl md:text-5xl text-white">La Carta</h2>
             </div>
 
-            <div class="space-y-24">
+            <div class="space-y-16 md:space-y-24">
                 <div>
-                    <h3 class="text-xs uppercase tracking-widest-xl text-stone-400 border-b border-stone-800 pb-4 mb-10">Signature Mixology</h3>
-                    <ul class="space-y-12">
-                        <li class="group">
-                            <div class="flex justify-between items-baseline mb-2">
-                                <h4 class="font-display text-2xl text-white group-hover:text-accent transition-colors duration-300">L'Oro di Milano</h4>
-                                <span class="font-sans text-sm font-medium">22 €</span>
+                    <h3 class="text-[10px] md:text-xs uppercase tracking-widest-xl text-stone-400 border-b border-stone-800 pb-4 mb-8">Signature Mixology</h3>
+                    <ul class="space-y-10">
+                        <li>
+                            <div class="flex flex-col md:flex-row md:justify-between md:items-baseline mb-2">
+                                <h4 class="font-display text-xl md:text-2xl text-white text-accent">L'Oro di Milano</h4>
+                                <span class="font-sans text-sm md:text-base font-medium mt-1 md:mt-0 text-stone-300">22 €</span>
                             </div>
-                            <p class="text-stone-400 font-light text-sm leading-relaxed max-w-md">Zafferano infuso in Gin premium artigianale, vermouth bianco dry, foglia d'oro edibile 24k.</p>
+                            <p class="text-stone-400 font-light text-sm leading-relaxed">Zafferano infuso in Gin artigianale, vermouth dry, foglia d'oro 24k.</p>
                         </li>
-                        <li class="group">
-                            <div class="flex justify-between items-baseline mb-2">
-                                <h4 class="font-display text-2xl text-white group-hover:text-accent transition-colors duration-300">Nebbia in Valpadana</h4>
-                                <span class="font-sans text-sm font-medium">18 €</span>
+                        <li>
+                            <div class="flex flex-col md:flex-row md:justify-between md:items-baseline mb-2">
+                                <h4 class="font-display text-xl md:text-2xl text-white text-accent">Nebbia in Valpadana</h4>
+                                <span class="font-sans text-sm md:text-base font-medium mt-1 md:mt-0 text-stone-300">18 €</span>
                             </div>
-                            <p class="text-stone-400 font-light text-sm leading-relaxed max-w-md">Bourbon invecchiato, sciroppo d'acero affumicato, bitter al mallo di noce, servito sotto cupola di fumo di melo.</p>
+                            <p class="text-stone-400 font-light text-sm leading-relaxed">Bourbon invecchiato, acero affumicato, servito sotto fumo di melo.</p>
                         </li>
                     </ul>
                 </div>
-
-                <div>
-                    <h3 class="text-xs uppercase tracking-widest-xl text-stone-400 border-b border-stone-800 pb-4 mb-10">Gourmet Bites</h3>
-                    <ul class="space-y-12">
-                        <li class="group">
-                            <div class="flex justify-between items-baseline mb-2">
-                                <h4 class="font-display text-2xl text-white group-hover:text-accent transition-colors duration-300">Ostriche & Caviale</h4>
-                                <span class="font-sans text-sm font-medium">45 €</span>
-                            </div>
-                            <p class="text-stone-400 font-light text-sm leading-relaxed max-w-md">Selezione di 3 ostriche fine de claire, blinis artigianali, caviale Oscietra e panna acida.</p>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-            
-            <div class="text-center mt-24">
-                 <a href="#" class="inline-block border border-stone-700 hover:border-accent text-xs uppercase tracking-widest font-medium px-10 py-4 transition-all duration-500">
-                    Scarica l'intera carta
-                </a>
             </div>
         </div>
     </section>
 
-    <footer class="bg-stone-100 py-20 px-8 text-center border-t border-stone-200">
-        <h4 class="font-display text-2xl text-stone-900 mb-8 tracking-widest">L'ATTICO</h4>
-        <div class="flex flex-col md:flex-row justify-center items-center space-y-4 md:space-y-0 md:space-x-12 mb-12 text-sm font-light text-stone-500">
+    <footer class="bg-stone-100 py-16 px-6 text-center border-t border-stone-200">
+        <h4 class="font-display text-xl md:text-2xl text-stone-900 mb-6 tracking-widest">L'ATTICO</h4>
+        <div class="flex flex-col md:flex-row justify-center items-center space-y-3 md:space-y-0 md:space-x-8 mb-10 text-xs md:text-sm font-light text-stone-500">
             <p>Via Brera, 12 - Milano</p>
             <p class="hidden md:block">|</p>
-            <p><a href="tel:+393534321599" class="hover:text-stone-900 transition">+39 353 432 1599</a></p>
+            <p><a href="tel:+393534321599" class="hover:text-stone-900">+39 353 432 1599</a></p>
             <p class="hidden md:block">|</p>
-            <p>18:00 — 02:00 (Lun chiuso)</p>
+            <p>18:00 — 02:00</p>
         </div>
-        <p class="text-[10px] uppercase tracking-widest-xl text-stone-400">
-            © 2026 L'Attico Milano. <br class="md:hidden">Cura digitale by <span class="text-stone-800 font-medium">Ingegneria Web Milano</span>.
+        <p class="text-[9px] md:text-[10px] uppercase tracking-widest-xl text-stone-400">
+            © 2026 L'Attico Milano. Cura digitale by Ingegneria Web Milano.
         </p>
     </footer>
 
-    <a href="https://wa.me/393534321599?text=Salve!%20Vorrei%20avere%20informazioni%20sulle%20prenotazioni%20a%20L'Attico." target="_blank" class="fixed bottom-8 right-8 bg-stone-900 text-white border border-accent w-14 h-14 rounded-full flex items-center justify-center text-2xl shadow-2xl hover:bg-accent hover:text-stone-900 transition-all duration-300 z-50 group">
-        <i class="fa-brands fa-whatsapp group-hover:scale-110 transition-transform"></i>
+    <a href="https://wa.me/393534321599?text=Salve!%20Vorrei%20avere%20informazioni%20sulle%20prenotazioni%20a%20L'Attico." target="_blank" class="fixed bottom-6 right-6 md:bottom-8 md:right-8 bg-stone-900 text-white border border-accent w-12 h-12 md:w-14 md:h-14 rounded-full flex items-center justify-center text-xl md:text-2xl shadow-2xl z-40">
+        <i class="fa-brands fa-whatsapp"></i>
     </a>
 
     <script>
+        // Animazione Scroll
         function reveal() {
             var reveals = document.querySelectorAll(".reveal");
             for (var i = 0; i < reveals.length; i++) {
                 var windowHeight = window.innerHeight;
                 var elementTop = reveals[i].getBoundingClientRect().top;
-                var elementVisible = 100;
-                if (elementTop < windowHeight - elementVisible) {
-                    reveals[i].classList.add("active");
-                }
+                if (elementTop < windowHeight - 50) { reveals[i].classList.add("active"); }
             }
         }
         window.addEventListener("scroll", reveal);
-        // Trigger iniziale
         setTimeout(reveal, 100);
+
+        // Gestione Menu Mobile
+        const menuBtn = document.getElementById('menu-btn');
+        const closeBtn = document.getElementById('close-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const mobileLinks = document.querySelectorAll('.mobile-link');
+
+        function toggleMenu() {
+            mobileMenu.classList.toggle('open');
+            document.body.style.overflow = mobileMenu.classList.contains('open') ? 'hidden' : '';
+        }
+
+        menuBtn.addEventListener('click', toggleMenu);
+        closeBtn.addEventListener('click', toggleMenu);
+        mobileLinks.forEach(link => link.addEventListener('click', toggleMenu));
     </script>
 </body>
 </html>
